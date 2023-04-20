@@ -7,7 +7,16 @@ app.secret_key = "SECRETSECRETSECRET"
 
 
 def is_mel(name, email):
-    """Is this user Mel?"""
+    """Is this user Mel?
+    >>> is_mel('Mel Melitpolski', 'mel@ubermelon.com')
+    True
+    >>> is_mel('tyler', 'ty@ty.com')
+    False
+    >>> is_mel('tyler', 'mel@ubermelon.com')
+    True
+    >>> is_mel('Mel Melitpolski', 'fake@fake.com')
+    True
+    """
 
     return name == "Mel Melitpolski" or email == "mel@ubermelon.com"
 
@@ -16,13 +25,65 @@ def most_and_least_common_type(treats):
     """Given list of treats, return most and least common treat types.
 
     Return most and least common treat types in tuple of format (most, least).
+
+    Tests:
+    >>> most_and_least_common_type([
+    ...   {'type': 'dessert'},
+    ...   {'type': 'dessert'},
+    ...   {'type': 'appetizer'},
+    ...   {'type': 'dessert'},
+    ...   {'type': 'appetizer'},
+    ...   {'type': 'drink'},
+    ... ])
+    ('dessert', 'drink')
+
+    #Test for a tie:
+    >>> most_and_least_common_type([
+    ...   {'type': 'dessert'},
+    ...   {'type': 'dessert'},
+    ...   {'type': 'appetizer'},
+    ...   {'type': 'dessert'},
+    ...   {'type': 'appetizer'},
+    ...   {'type': 'drink'},
+    ...   {'type': 'appetizer'}
+    ... ])
+    ('dessert', 'drink')
+
+    Test for one type of food:
+    >>> most_and_least_common_type([
+    ...     {'type': 'dessert'},
+    ...     {'type': 'dessert'},
+    ...     {'type': 'dessert'},
+     ])
+    ('dessert', 'dessert')
+
+    Test for a empty list:
+    >>> most_and_least_common_type([])
+    (None, None)
+    
     """
+
+    # treats = [
+    #     {'type': 'dessert'},
+    #     {'type': 'dessert'},
+    #     {'type': 'appetizer'},
+    #     {'type': 'dessert'},
+    #     {'type': 'appetizer'},
+    #     {'type': 'drink'},
+    #     {'type': 'appetizer'}
+    # ]
 
     types = {}
 
     # Count number of each type
     for treat in treats:
         types[treat['type']] = types.get(treat['type'], 0) + 1
+
+    # types = {
+    #     'dessert' : 3,
+    #     'appetizer' : 2,
+    #     'drink' : 1,
+    # }
 
     most_count = most_type = None
     least_count = least_type = None
